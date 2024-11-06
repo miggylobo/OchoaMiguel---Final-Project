@@ -1,8 +1,7 @@
 # Cat Rain
 
 ## Repository
-<Link to your project's public GitHub respository>
-
+https://github.com/miggylobo/OchoaMiguel---Final-Project.git
 ## Description
 I will make a program that makes it rain cat heads! This will be similar to the rain trail lab we did a couple weeks ago, but with cats of different colors instead of simple particles. 
 It is an art piece honoring my love of cats. You might even see my cat, Tajin in there! 
