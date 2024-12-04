@@ -28,19 +28,19 @@ class Particle():
 
         if self.shape == 1:
             image = pygame.image.load("cat1.png")
-            print("Loaded cat1.png")
+        
         elif self.shape == 2:
             image = pygame.image.load("cat2.png")
-            print("Loaded cat2.png")
+        
         elif self.shape == 3:
             image = pygame.image.load("cat3.png")
-            print("Loaded cat3.png")
+
         elif self.shape == 4:
             image = pygame.image.load("cat4.png")
-            print("Loaded cat4.png")
+
         elif self.shape == 5:
             image = pygame.image.load("cat5.png")
-            print("Loaded cat5.png")
+
         if image:
             image = pygame.transform.scale(image, (int(self.size * 1), int(self.size * 1)))
             surf.blit(image, (0, 0))
