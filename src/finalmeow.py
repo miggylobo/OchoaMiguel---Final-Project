@@ -23,19 +23,26 @@ class Particle():
         self.alpha = 255 * (1 - self.age / self.life)
 
     def update_surface(self):
-        surf = pygame.Surface((self.size * 1.5, self.size * 1.5), pygame.SRCALPHA)
+        surf = pygame.Surface((self.size * 1, self.size * 1), pygame.SRCALPHA)
         image = None
 
         if self.shape == 1:
             image = pygame.image.load("cat1.png")
             print("Loaded cat1.png")
         elif self.shape == 2:
-            pygame.draw.circle(surf, self.color, (self.size // 2, self.size // 2), self.size // 2)
+            image = pygame.image.load("cat2.png")
+            print("Loaded cat2.png")
         elif self.shape == 3:
-            pygame.draw.line(surf, self.color, (0,0), (self.size, self.size))
-        
+            image = pygame.image.load("cat3.png")
+            print("Loaded cat3.png")
+        elif self.shape == 4:
+            image = pygame.image.load("cat4.png")
+            print("Loaded cat4.png")
+        elif self.shape == 5:
+            image = pygame.image.load("cat5.png")
+            print("Loaded cat5.png")
         if image:
-            image = pygame.transform.scale(image, (int(self.size * 1.5), int(self.size * 1.5)))
+            image = pygame.transform.scale(image, (int(self.size * 1), int(self.size * 1)))
             surf.blit(image, (0, 0))
         
         return surf
