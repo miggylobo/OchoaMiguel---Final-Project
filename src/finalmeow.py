@@ -61,6 +61,8 @@ class ParticleTrail():
         self.size = size
         self.life = life
         self.particles = []
+        self.previous_positions = []
+        self.shape = random.randrange(1, 6)
 
 
     def update(self, dt):
@@ -68,15 +70,20 @@ class ParticleTrail():
         self.particles.insert(0, particle)
         self._update_particles(dt)
         self._update_pos()
-        
 
     def _update_particles(self, dt):
         for idx, particle in enumerate(self.particles):
             particle.update(dt)
             if particle.dead:
                 del self.particles[idx]
+        if self.shape == 1:
+            image = pygame.image.load("cattail1.png")
+        
+        elif self.shape == 2:
+            image = pygame.image.load("cattail2.png")
 
     def _update_pos(self):
+        self.previous_positions.append(self.pos)
         x, y = self.pos
         y += self.size
         self.pos = (x, y)
