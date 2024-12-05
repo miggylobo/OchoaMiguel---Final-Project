@@ -1,10 +1,16 @@
 import pygame
 import random
 
+image1 = pygame.image.load('cat1.png')
+image2 = pygame.image.load('cat2.png')
+image3 = pygame.image.load('cat3.png')
+image4 = pygame.image.load('cat4.png')
+image5 = pygame.image.load('cat5.png')
+                                
 
 class Particle():
 
-    def __init__(self, pos=(0, 0), size=15, life=1000):
+    def __init__(self, pos=(0, 0), size=15, life=10):
         self.pos = pos
         self.size = size
         self.color = pygame.Color(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
@@ -27,19 +33,18 @@ class Particle():
         image = None
 
         if self.shape == 1:
-            image = pygame.image.load("cat1.png")
+            image = image1
         
         elif self.shape == 2:
-            image = pygame.image.load("cat2.png")
+            image = image2
         
         elif self.shape == 3:
-            image = pygame.image.load("cat3.png")
-
+            image = image3
         elif self.shape == 4:
-            image = pygame.image.load("cat4.png")
+            image = image4
 
         elif self.shape == 5:
-            image = pygame.image.load("cat5.png")
+            image = image5
 
         if image:
             image = pygame.transform.scale(image, (int(self.size * 1), int(self.size * 1)))
@@ -62,7 +67,7 @@ class ParticleTrail():
         self.life = life
         self.particles = []
         self.previous_positions = []
-        self.shape = random.randrange(1, 6)
+        self.shape = random.randrange(1, 3)
 
 
     def update(self, dt):
@@ -76,6 +81,8 @@ class ParticleTrail():
             particle.update(dt)
             if particle.dead:
                 del self.particles[idx]
+        particle.surface = particle.update_surface()
+        image = None
         if self.shape == 1:
             image = pygame.image.load("cattail1.png")
         
@@ -120,7 +127,7 @@ class Rain():
             screen_width = self.screen_res[0]
             x = random.randrange(0, screen_width, self.particle_size)
             pos = (x, 0)
-            life = random.randrange(500, 3000)
+            life = random.randrange(500, 1000)
             trail = ParticleTrail(pos, self.particle_size, life)
             self.trails.insert(0, trail)
 
