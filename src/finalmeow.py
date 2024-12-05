@@ -6,7 +6,10 @@ image2 = pygame.image.load('cat2.png')
 image3 = pygame.image.load('cat3.png')
 image4 = pygame.image.load('cat4.png')
 image5 = pygame.image.load('cat5.png')
-                                
+cat_tail_images = [
+    pygame.image.load('cattail1.png'),
+    pygame.image.load('cattail2.png'),
+]                          
 
 class Particle():
 
@@ -40,9 +43,10 @@ class Particle():
         
         elif self.shape == 3:
             image = image3
+
         elif self.shape == 4:
             image = image4
-
+            
         elif self.shape == 5:
             image = image5
 
@@ -61,17 +65,16 @@ class Particle():
 
 class ParticleTrail():
 
-    def __init__(self, pos, size, life):
+    def __init__(self, pos, size, life, tail_img):
         self.pos = pos
         self.size = size
         self.life = life
         self.particles = []
-        self.previous_positions = []
-        self.shape = random.randrange(1, 3)
-
+        self.tail_img = tail_img
 
     def update(self, dt):
-        particle = Particle(self.pos, size=self.size, life=self.life)
+        cat_tail_images = random.choice(self.tail_img)
+        particle = Particle(self.pos, size=self.size, life=self.life, tail_img=cat_tail_images)
         self.particles.insert(0, particle)
         self._update_particles(dt)
         self._update_pos()
