@@ -6,14 +6,11 @@ image2 = pygame.image.load('cat2.png')
 image3 = pygame.image.load('cat3.png')
 image4 = pygame.image.load('cat4.png')
 image5 = pygame.image.load('cat5.png')
-cat_tail_images = [
-    pygame.image.load('cattail1.png'),
-    pygame.image.load('cattail2.png'),
-]                          
+                 
 
 class Particle():
 
-    def __init__(self, pos=(0, 0), size=15, life=10):
+    def __init__(self, pos=(0, 0), size=15, life=10, image=None):
         self.pos = pos
         self.size = size
         self.color = pygame.Color(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
@@ -33,7 +30,7 @@ class Particle():
 
     def update_surface(self):
         surf = pygame.Surface((self.size * 1, self.size * 1), pygame.SRCALPHA)
-        image = None
+
 
         if self.shape == 1:
             image = image1
@@ -65,16 +62,14 @@ class Particle():
 
 class ParticleTrail():
 
-    def __init__(self, pos, size, life, tail_img):
+    def __init__(self, pos, size, life):
         self.pos = pos
         self.size = size
         self.life = life
         self.particles = []
-        self.tail_img = tail_img
 
     def update(self, dt):
-        cat_tail_images = random.choice(self.tail_img)
-        particle = Particle(self.pos, size=self.size, life=self.life, tail_img=cat_tail_images)
+        particle = Particle(self.pos, size=self.size, life=self.life)
         self.particles.insert(0, particle)
         self._update_particles(dt)
         self._update_pos()
@@ -124,7 +119,8 @@ class Rain():
             x = random.randrange(0, screen_width, self.particle_size)
             pos = (x, 0)
             life = random.randrange(500, 1000)
-            trail = ParticleTrail(pos, self.particle_size, life)
+            tail_images = self.trails
+            trail = ParticleTrail(pos, self.particle_size, life, tail_images)
             self.trails.insert(0, trail)
 
     def draw(self, surface):
