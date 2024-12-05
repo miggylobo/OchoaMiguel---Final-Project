@@ -1,12 +1,17 @@
 import pygame
 import random
+from pygame import mixer
+
+mixer.init()
 
 image1 = pygame.image.load('cat1.png')
 image2 = pygame.image.load('cat2.png')
 image3 = pygame.image.load('cat3.png')
 image4 = pygame.image.load('cat4.png')
 image5 = pygame.image.load('cat5.png')
-                 
+# sound1 = pygame.mixer.music.load('meow1.wav')
+#sound2 = pygame.mixer.music.load('meow2.wav')
+#sound3 = pygame.mixer.music.load('meow3.wav')
 
 class Particle():
 
@@ -136,7 +141,7 @@ class Rain():
 
 def main():
     pygame.init()
-    pygame.display.set_caption("Digital Rain")
+    pygame.display.set_caption("Cat Rain!")
     clock = pygame.time.Clock()
     dt = 0
     possible_resolutions = [(1920, 1080), (960, 540), (480, 270)]
@@ -165,6 +170,8 @@ def main():
                     life = random.randrange(500, 1000)
                     trail = ParticleTrail(mouse_pos, rain.particle_size, life)
                     rain.trails.append(trail)
+                    meowsound1 = mixer.Sound('meow1.wav')
+                    meowsound1.play()
 
         # TODO: some game logic
         rain.update(dt)
