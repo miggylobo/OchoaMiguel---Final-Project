@@ -150,7 +150,7 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if pygame.mouse.get_pressed()[2]:
+                if pygame.mouse.get_pressed()[1]:
                     current_resolution = (current_resolution + 1) % len(possible_resolutions)
                     new_resolution = possible_resolutions[current_resolution]
                     screen = pygame.display.set_mode(new_resolution)
@@ -160,6 +160,11 @@ def main():
                         rain.direction_down = False
                     elif rain.direction_down == False:
                         rain.direction_down = True
+                if pygame.mouse.get_pressed()[2]:
+                    mouse_pos = pygame.mouse.get_pos()
+                    life = random.randrange(500, 1000)
+                    trail = ParticleTrail(mouse_pos, rain.particle_size, life)
+                    rain.trails.append(trail)
 
         # TODO: some game logic
         rain.update(dt)
