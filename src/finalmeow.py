@@ -84,13 +84,6 @@ class ParticleTrail():
             particle.update(dt)
             if particle.dead:
                 del self.particles[idx]
-        particle.surface = particle.update_surface()
-        image = None
-        if self.shape == 1:
-            image = pygame.image.load("cattail1.png")
-        
-        elif self.shape == 2:
-            image = pygame.image.load("cattail2.png")
 
     def _update_pos(self):
         self.previous_positions.append(self.pos)
