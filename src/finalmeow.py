@@ -68,7 +68,7 @@ class ParticleTrail():
         self.life = life
         self.particles = []
 
-    def update(self, dt):
+    def update(self, dt, direction_down=True):
         particle = Particle(self.pos, size=self.size, life=self.life)
         self.particles.insert(0, particle)
         self._update_particles(dt)
@@ -80,10 +80,12 @@ class ParticleTrail():
             if particle.dead:
                 del self.particles[idx]
 
-    def _update_pos(self):
-        self.previous_positions.append(self.pos)
+    def _update_pos(self, direction_down):
         x, y = self.pos
-        y += self.size
+        if direction_down == True:
+            y += self.size
+        elif direction_down == False:
+            y-= self.size
         self.pos = (x, y)
 
     def draw(self, surface):
@@ -119,8 +121,7 @@ class Rain():
             x = random.randrange(0, screen_width, self.particle_size)
             pos = (x, 0)
             life = random.randrange(500, 1000)
-            tail_images = self.trails
-            trail = ParticleTrail(pos, self.particle_size, life, tail_images)
+            trail = ParticleTrail(pos, self.particle_size, life)
             self.trails.insert(0, trail)
 
     def draw(self, surface):
