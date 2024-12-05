@@ -72,7 +72,7 @@ class ParticleTrail():
         particle = Particle(self.pos, size=self.size, life=self.life)
         self.particles.insert(0, particle)
         self._update_particles(dt)
-        self._update_pos()
+        self._update_pos(direction_down)
 
     def _update_particles(self, dt):
         for idx, particle in enumerate(self.particles):
@@ -85,7 +85,7 @@ class ParticleTrail():
         if direction_down == True:
             y += self.size
         elif direction_down == False:
-            y-= self.size
+            y -= self.size
         self.pos = (x, y)
 
     def draw(self, surface):
@@ -99,6 +99,7 @@ class Rain():
         self.particle_size = 15
         self.birth_rate = 1 # trails per frame
         self.trails = []
+        self.direction_down = True
 
     def update(self, dt):
         self._birth_new_trails()
@@ -107,19 +108,24 @@ class Rain():
     
     def _update_trails(self, dt):
         for idx, trail in enumerate(self.trails):
-            trail.update(dt)
+            trail.update(dt, direction_down = self.direction_down)
             if self._trail_is_offscreen(trail):
                 del self.trails[idx]
 
     def _trail_is_offscreen(self, trail):
-        tail_is_offscreen = trail.particles[-1].pos[1] > self.screen_res[1]
-        return tail_is_offscreen
+        if self.direction_down == True:
+            return trail.particles[-1].pos[1] > self.screen_res[1]
+        elif self.direction_down == False:
+            return trail.particles[-1].pos[1] < 0
 
     def _birth_new_trails(self):
         for count in range(self.birth_rate):
             screen_width = self.screen_res[0]
-            x = random.randrange(0, screen_width, self.particle_size)
-            pos = (x, 0)
+            x = random.randrange(0, screen_width, self.particle_size) 
+            if self.direction_down == True:
+                pos = (x, 0)
+            elif self.direction_down == False:
+                pos = (x, self.screen_res[1])
             life = random.randrange(500, 1000)
             trail = ParticleTrail(pos, self.particle_size, life)
             self.trails.insert(0, trail)
@@ -144,11 +150,16 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if pygame.mouse.get_pressed()[0]:
+                if pygame.mouse.get_pressed()[2]:
                     current_resolution = (current_resolution + 1) % len(possible_resolutions)
                     new_resolution = possible_resolutions[current_resolution]
                     screen = pygame.display.set_mode(new_resolution)
                     rain = Rain(new_resolution)
+                if pygame.mouse.get_pressed()[0]:
+                    if rain.direction_down == True:
+                        rain.direction_down = False
+                    elif rain.direction_down == False:
+                        rain.direction_down = True
 
         # TODO: some game logic
         rain.update(dt)
