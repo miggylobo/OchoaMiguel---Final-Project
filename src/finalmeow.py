@@ -9,9 +9,11 @@ image2 = pygame.image.load('cat2.png')
 image3 = pygame.image.load('cat3.png')
 image4 = pygame.image.load('cat4.png')
 image5 = pygame.image.load('cat5.png')
-# sound1 = pygame.mixer.music.load('meow1.wav')
-#sound2 = pygame.mixer.music.load('meow2.wav')
-#sound3 = pygame.mixer.music.load('meow3.wav')
+meow_sounds = [
+    pygame.mixer.Sound('meow1.wav'),
+    pygame.mixer.Sound('meow2.wav'),
+    pygame.mixer.Sound('meow3.wav')
+]
 
 
 class Particle():
@@ -36,8 +38,7 @@ class Particle():
 
     def update_surface(self):
         surf = pygame.Surface((self.size * 1, self.size * 1), pygame.SRCALPHA)
-
-
+        
         if self.shape == 1:
             image = image1
         
@@ -171,8 +172,7 @@ def main():
                     life = random.randrange(500, 1000)
                     trail = ParticleTrail(mouse_pos, rain.particle_size, life)
                     rain.trails.append(trail)
-                    meowsound1 = mixer.Sound('meow1.wav')
-                    meowsound1.play()
+                    random.choice(meow_sounds).play()
 
         # TODO: some game logic
         rain.update(dt)
