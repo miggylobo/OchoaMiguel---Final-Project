@@ -13,6 +13,7 @@ image5 = pygame.image.load('cat5.png')
 #sound2 = pygame.mixer.music.load('meow2.wav')
 #sound3 = pygame.mixer.music.load('meow3.wav')
 
+
 class Particle():
 
     def __init__(self, pos=(0, 0), size=15, life=10, image=None):
