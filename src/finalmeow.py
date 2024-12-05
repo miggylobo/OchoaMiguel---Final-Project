@@ -38,21 +38,12 @@ class Particle():
 
     def update_surface(self):
         surf = pygame.Surface((self.size * 1, self.size * 1), pygame.SRCALPHA)
-        
-        if self.shape == 1:
-            image = image1
-        
-        elif self.shape == 2:
-            image = image2
-        
-        elif self.shape == 3:
-            image = image3
 
-        elif self.shape == 4:
-            image = image4
-            
-        elif self.shape == 5:
-            image = image5
+        images = [image1, image2, image3, image4, image5]
+        if 1 <= self.shape and self.shape <= 5:
+            image = images[self.shape - 1]
+        else:
+            image = None
 
         if image:
             image = pygame.transform.scale(image, (int(self.size * 1), int(self.size * 1)))
