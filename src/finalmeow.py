@@ -150,16 +150,16 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if pygame.mouse.get_pressed()[1]:
-                    current_resolution = (current_resolution + 1) % len(possible_resolutions)
-                    new_resolution = possible_resolutions[current_resolution]
-                    screen = pygame.display.set_mode(new_resolution)
-                    rain = Rain(new_resolution)
                 if pygame.mouse.get_pressed()[0]:
                     if rain.direction_down == True:
                         rain.direction_down = False
                     elif rain.direction_down == False:
                         rain.direction_down = True
+                if pygame.mouse.get_pressed()[1]:
+                    current_resolution = (current_resolution + 1) % len(possible_resolutions)
+                    new_resolution = possible_resolutions[current_resolution]
+                    screen = pygame.display.set_mode(new_resolution)
+                    rain = Rain(new_resolution)
                 if pygame.mouse.get_pressed()[2]:
                     mouse_pos = pygame.mouse.get_pos()
                     life = random.randrange(500, 1000)
