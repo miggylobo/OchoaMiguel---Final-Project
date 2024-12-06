@@ -40,7 +40,7 @@ class Particle():
         surf = pygame.Surface((self.size * 1, self.size * 1), pygame.SRCALPHA)
 
         images = [image1, image2, image3, image4, image5]
-        if 1 <= self.shape and self.shape <= 5:
+        if 1 <= self.shape <= 5:
             image = images[self.shape - 1]
         else:
             image = None
